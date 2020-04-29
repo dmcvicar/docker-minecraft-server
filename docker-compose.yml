@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  world:
+    build: .
+    image: minecraft-mcvicaria
+    ports:
+      - "25565:25565"
+      - "25575:25575"
+    command: bash ./bin/run_server.bash
+    environment:
+      MINECRAFT_VERSION: 20w17a
+      WORLD_NAME: Davetowm2
+      AWS_SHARED_CREDENTIALS_FILE: /run/secrets/aws-credentials
+    secrets:
+      - aws-credentials
+      - mcrcon-pwd
+
+secrets:
+  aws-credentials:
+    file: secrets/aws-credentials
+  mcrcon-pwd:
+    file: secrets/mcrcon-pwd
