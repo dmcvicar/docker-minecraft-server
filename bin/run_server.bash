@@ -23,10 +23,9 @@ fi &&
 MY_VERSION=$(($MY_VERSION+1)) &&
 echo $MY_VERSION > ./world-version &&
 
-RCON_PWD=`cat /run/secrets/mcrcon-pwd`
-sed -e "s/{{level_name}}/${WORLD_NAME}/g" -e "s/{{rcon_pwd}}/${RCON_PWD}/g" server.properties.tmpl > server.properties
+sed -e "s/{{level_name}}/${WORLD_NAME}/g" -e "s/{{rcon_pwd}}/${MCRCON_PWD}/g" server.properties.tmpl > server.properties
 
-java -Xmx1024M -Xms1024M -jar lib/$MINECRAFT_VERSION/server.jar nogui;
+java -Xmx1024M -Xms1024M -jar server.jar nogui;
 
 aws s3 rm s3://minecraft-mcvicaria/server-$MINECRAFT_VERSION/$WORLD_NAME --recursive;
 aws s3 cp ./$WORLD_NAME s3://minecraft-mcvicaria/server-$MINECRAFT_VERSION/$WORLD_NAME --recursive;
