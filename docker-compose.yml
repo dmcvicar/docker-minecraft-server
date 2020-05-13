@@ -14,6 +14,6 @@ services:
       - "25575:25575"
     command: bash ./bin/run_server.bash
     environment:
-      MINECRAFT_VERSION: 20w18a
+      MINECRAFT_VERSION: 20w19a
       WORLD_NAME: Davetown
       MCRCON_PWD: password
