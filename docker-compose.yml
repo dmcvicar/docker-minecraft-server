@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        MINECRAFT_VERSION: 20w22a
+        MINECRAFT_VERSION: 1.16.3
     image: minecraft-mcvicaria
     volumes:
       - "C:\\Users\\dwmcv\\.aws:/root/.aws"
@@ -14,6 +14,6 @@ services:
       - "25575:25575"
     command: bash ./bin/run_server.bash
     environment:
-      MINECRAFT_VERSION: 20w22a
-      WORLD_NAME: Davetown
+      MINECRAFT_VERSION: 1.16.3
+      WORLD_NAME: Equestria
       MCRCON_PWD: password
