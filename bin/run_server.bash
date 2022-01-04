@@ -2,13 +2,13 @@
 echo 'Running Server' &&
 if [[ ! -f ./world-versions/${WORLD_NAME}/world-version ]]; then
   mkdir -p ./world-versions/${WORLD_NAME} &&
-  echo 0 > ./world-versions/${WORLD_NAME}/world-version
+  echo 0 > ./world-versions/${WORLD_NAME}/world-version &&
   CREATE_WORLD="true"
 fi &&
 
-if [ -z $CREATE_WORLD ]
-  aws s3 cp s3://mcvicar-minecraft/server-${MINECRAFT_VERSION}/world-versions/${WORLD_NAME}/world-version ./world-versions/${WORLD_NAME}/remote-world-version
-  REMOTE_VERSION=`cat ./world-versions/${WORLD_NAME}/remote-world-version | sed 's/\r$//'` &&
+if [[ -z $CREATE_WORLD ]]; then
+  aws s3 cp s3://mcvicar-minecraft/server-${MINECRAFT_VERSION}/world-versions/${WORLD_NAME}/world-version ./world-versions/${WORLD_NAME}/remote-world-version &&
+  REMOTE_VERSION=`cat ./world-versions/${WORLD_NAME}/remote-world-version | sed 's/\r$//'`
 else
   REMOTE_VERSION=-1
 fi && 
@@ -30,5 +30,5 @@ sed -e "s/{{level_name}}/${WORLD_NAME}/g" -e "s/{{rcon_pwd}}/${MCRCON_PWD}/g" se
 java -Xmx4096M -Xms4096M -jar server.jar nogui &&
 
 aws s3 sync ./${WORLD_NAME} s3://mcvicar-minecraft/server-${MINECRAFT_VERSION}/${WORLD_NAME} --delete &&
-aws s3 cp ./world-versions/${WORLD_NAME}/world-version s3://mcvicar-minecraft/server-${MINECRAFT_VERSION}/world-versions/${WORLD_NAME}/world-version;
+aws s3 cp ./world-versions/${WORLD_NAME}/world-version s3://mcvicar-minecraft/server-${MINECRAFT_VERSION}/world-versions/${WORLD_NAME}/world-version &&
 echo 'Goodbye';
