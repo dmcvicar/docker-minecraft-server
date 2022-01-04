@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        MINECRAFT_VERSION: 1.16.3
+        MINECRAFT_VERSION: 1.18.1
     image: minecraft-mcvicaria
     volumes:
       - "C:\\Users\\dwmcv\\.aws:/root/.aws"
